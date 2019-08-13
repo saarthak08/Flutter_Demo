@@ -5,12 +5,15 @@ class App extends StatefulWidget{
     return AppState();
   }
 }
+
+
 class AppState extends State<App>{
   int counter=0;
 
   Widget build(BuildContext context){
     return 
     MaterialApp(
+      title: 'Demo Flutter',
     home:Scaffold(appBar: AppBar(title: Text('Lets see some Images!'),
     elevation: 4
     ),
