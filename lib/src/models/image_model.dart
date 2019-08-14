@@ -1,11 +1,11 @@
-class image_model{
+class ImageModel{
   int id;
   String url;
   String title;
 
-  image_model(this.id,this.url,this.title);
+  ImageModel(this.id,this.url,this.title);
 
-  image_model.fromJson(Map<String, dynamic> parsedJson){
+  ImageModel.fromJson(Map<String, dynamic> parsedJson){
     this.id=parsedJson['id'];
     this.url=parsedJson['url'];
     this.title=parsedJson['title'];
