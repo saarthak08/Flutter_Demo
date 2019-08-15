@@ -11,34 +11,85 @@ class App extends StatefulWidget{
   }
 }
 
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Demo Flutter',
+      home: App(),
+    );
+  }
+}
+
+
 
 class AppState extends State<App>{
   int counter=0;
   List<ImageModel> imagesList=[];
 
-  void fetchImage() async{
+  void fetchImage(BuildContext context) async{
       counter++;
+      showAlertDialog(context);
       final response=await get('https://jsonplaceholder.typicode.com/photos/$counter');
       final imageModel=ImageModel.fromJson(json.decode(response.body));
       setState(() {
        imagesList.add(imageModel);
+       Navigator.of(context).pop();
       });
 
   }
 
   Widget build(BuildContext context){
-    return 
-    MaterialApp(
-      title: 'Demo Flutter',
-    home:Scaffold(appBar: AppBar(title: Text('Lets see some Images!'),
-    elevation: 4
+    return
+    Scaffold(
+      appBar: AppBar(
+          title: Text('Lets see some Images!'),
+          elevation: 4
     ),
-     body: ImageList(imagesList),
-    floatingActionButton: FloatingActionButton(
-      onPressed:fetchImage
-      ,child: Icon(Icons.add)
-      ,)
-  ,)
-  );
+      body: ImageList(imagesList),
+      floatingActionButton: FloatingActionButton(
+        onPressed:(){ fetchImage(context);}
+      , child: Icon(Icons.add)
+        ,)
+  ,);
+  }
+
+
+  Widget showAlertDialog(BuildContext context) {
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Please Wait!"),
+      content: new Container(
+        child:
+            new Column(
+              children: <Widget>[
+                Text("Loading..."),
+                Padding(
+                child: CircularProgressIndicator(backgroundColor: Colors.tealAccent,valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),),
+                  padding: EdgeInsets.all(16.0),
+              )
+              ],
+              mainAxisSize: MainAxisSize.min,
+            ),
+      ),
+      backgroundColor: Colors.lightGreen,
+      elevation: 8.0,
+      shape: Border.all(
+        color: Colors.black,
+        style: BorderStyle.solid
+      ),
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+
+    return alert;
   }
 }
+
