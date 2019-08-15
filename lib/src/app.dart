@@ -87,6 +87,7 @@ class AppState extends State<App>{
       builder: (BuildContext context) {
         return alert;
       },
+      barrierDismissible: false
     );
 
     return alert;
