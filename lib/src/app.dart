@@ -1,3 +1,4 @@
+import 'package:Demo_Flutter/src/widgets/alert_dialog_box.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' show get;   //show is used to import specific parts from a library only.
 import 'models/image_model.dart';
@@ -53,44 +54,16 @@ class AppState extends State<App>{
         ,)
   ,);
   }
-
-
-  Widget showAlertDialog(BuildContext context) {
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text("Please Wait!"),
-      content: new Container(
-        child:
-            new Column(
-              children: <Widget>[
-                Text("Loading..."),
-                Padding(
-                child: CircularProgressIndicator(backgroundColor: Colors.tealAccent,valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),),
-                  padding: EdgeInsets.all(16.0),
-              )
-              ],
-              mainAxisSize: MainAxisSize.min,
-            ),
-      ),
-      backgroundColor: Colors.lightGreen,
-      elevation: 8.0,
-      shape: Border.all(
-        color: Colors.black,
-        style: BorderStyle.solid
-      ),
-    );
-
-    // show the dialog
+  
+  showAlertDialog(BuildContext context){
+     // show the dialog
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return alert;
+        return AlertDialogBox();
       },
       barrierDismissible: false
     );
-
-    return alert;
   }
 }
 
